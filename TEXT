@@ -1,0 +1,1038 @@
+#include "graphics.h"
+#include "stdio.h"
+#include "math.h"
+#include "time.h"
+#include "stdlib.h"
+int main()
+{
+	srand((unsigned)time(NULL));
+	initwindow(1200, 720);
+	int i, j, k, l, a[24][14], x = 125, y = 75, key = 0, b = 0, health = 100, m = 0, tx = 775, ty = 275, lvl = 0, st = 1, dm = 1, mc = 1, ls = 2, in = 0, dmm = 2, ts = 1;
+	for (i = 0; i < 24; i++)
+	{
+		for (j = 0; j < 14; j++)
+		{
+			a[i][j] = 0;
+		}
+	}
+	while (1) {
+		if (lvl == 0) {
+			cleardevice();
+			in = 0;
+			setlinestyle(1, 1, 5);
+			mc = 1; health = 100;
+			if (ls == -1) { ls = 1; }
+			while (health > 0) {
+				outtextxy(400, 690, "RIGHT or LEFT to go        UP and DOWN to choose");
+				if (kbhit()) {
+					key = getch();
+				}
+				if (mc > 4) {
+					mc = 1;
+				}
+				if (mc < 1) {
+					mc = 4;
+				}
+				if (key == 72) { mc -= 1; cleardevice(); }
+				if (key == 80) { mc++; cleardevice(); }
+				if ((key == 75) || (key == 77)) {
+					switch (mc)
+					{
+					case 1: health = 0; lvl = -1; ts = 1; break;
+					case 2: health = 0; lvl = 1; break;
+					case 3: health = 0; lvl = -2; break;
+					case 4: return 0; break;
+					}
+				}
+				key = 72;
+				if ((key == 72) || (key == 80)) {
+					if (mc == 1) { setcolor(RED); }
+					else { setcolor(WHITE); }
+					rectangle(500, 300, 700, 350);
+					outtextxy(565, 316, "TUTORIAL");
+					if (mc == 2) { setcolor(RED); }
+					else { setcolor(WHITE); }
+					rectangle(500, 400, 700, 450);
+					outtextxy(579, 416, "START");
+					if (mc == 3) { setcolor(RED); }
+					else { setcolor(WHITE); }
+					rectangle(500, 500, 700, 550);
+					outtextxy(575, 516, "LEVELS");
+					if (mc == 4) { setcolor(RED); }
+					else { setcolor(WHITE); }
+					rectangle(500, 600, 700, 650);
+					outtextxy(588, 616, "EXIT");
+					key = 0;
+				}
+				settextstyle(0, 0, 20);
+				setcolor(WHITE);
+				outtextxy(400, 150, "Isn't hard");
+				settextstyle(0, 0, 0);
+			}
+			setlinestyle(0, 0, 1);
+			health = 100;
+			cleardevice();
+		}
+		if (lvl == -1){
+			for (i = 0; i < 24; i++) { for (j = 0; j < 14; j++) { a[i][j] = 0; } } 
+			x = 275; y = 225; m = 0; tx = 525; ty = 475; health = 100; ls = 1; in = 1; dm = 1;
+			for (i = 4; i < 20; i++) { for (j = 3; j < 12; j++) { a[i][j] = 4; } }
+			for (i = 5; i < 19; i++) { for (j = 4; j < 11; j++) { a[i][j] = 0; } }
+			if (ts == 1) {
+				a[5][7] = 4; a[5][10] = 9;
+				a[6][7] = 4; a[7][7] = 4; a[7][8] = 13; a[7][9] = 13; a[7][10] = 13;
+				a[8][7] = 11; a[9][5] = 15; a[9][6] = 15; a[9][4] = 15; a[9][7] = 4;
+				a[10][7] = 4; a[11][7] = 4; a[12][7] = 4; a[12][8] = 4; a[12][9] = 4; a[12][10] = 4;
+				a[13][5] = 1; a[13][4] = 1; a[13][6] = 1; a[13][7] = 4;
+				a[15][4] = 10; a[15][5] = 10; a[15][6] = 10;
+				a[14][7] = 4; a[15][7] = 4;
+				a[14][9] = 7; a[10][9] = 8;
+			}
+			if (ts == 2) {
+				a[5][8] = 4; a[5][9] = 4; a[5][10] = 4;
+				a[7][5] = 10; a[7][8] = 4; a[8][4] = 18; a[8][8] = 4; a[8][11] = 17;
+				a[9][10] = 10; a[9][8] = 4;
+				a[11][8] = 4; a[12][8] = 4;
+				a[12][4] = 18; a[12][9] = 4; a[12][10] = 4;
+				a[13][8] = 20;
+				a[13][11] = 6; a[14][11] = 6; a[15][11] = 6; a[16][11] = 6;
+				a[13][10] = 15; a[14][10] = 15; a[15][10] = 15; a[16][10] = 15;
+				a[17][8] = 4; a[18][8] = 4; a[18][10] = 9;
+				a[16][5] = 10; a[18][7] = 19;
+			}
+		}
+		if (lvl == -2){
+			health = 100;
+			mc = 2;
+			key = 72;
+			in = 0;
+			while (health > 0) {
+				if (kbhit()) {
+					key = getch();
+				}
+				setlinestyle(0, 0, 5);
+				settextstyle(0, 0, 8);
+				if (key == 27) { health = 0; lvl = 0; }
+				if (key == 72) { mc -= 1; key = 0; cleardevice(); }
+				if (key == 80) { mc++; key = 0; cleardevice(); }
+				if (mc > 21) {
+					mc = 1;;
+				}
+				if (mc < 1) {
+					mc = 21;
+				}
+				if (mc == 1) { setcolor(RED); }
+				else { setcolor(WHITE); }
+				outtextxy(25, 25, "Level 1"); 
+				if (mc == 2) { setcolor(RED); }
+				else { setcolor(WHITE); }
+				outtextxy(25, 125, "Level 2"); 
+				if (mc == 3) { setcolor(RED); }
+				else { setcolor(WHITE); }
+				outtextxy(25, 225, "Level 3");
+				if (mc == 4) { setcolor(RED); }
+				else { setcolor(WHITE); }
+				outtextxy(25, 325, "Level 4");
+				if (mc == 5) { setcolor(RED); }
+				else { setcolor(WHITE); }
+				outtextxy(25, 425, "Level 5");
+				if (mc == 6) { setcolor(RED); }
+				else { setcolor(WHITE); }
+				outtextxy(25, 525, "Level 6");
+				if (mc == 7) { setcolor(RED); }
+				else { setcolor(WHITE); }
+				outtextxy(25, 625, "Level 7");
+				if (mc == 8) { setcolor(RED); }
+				else { setcolor(WHITE); }
+				outtextxy(350, 25, "Level 8");
+				if (mc == 9) { setcolor(RED); }
+				else { setcolor(WHITE); }
+				outtextxy(350, 125, "Level 9");
+				if (mc == 10) { setcolor(RED); }
+				else { setcolor(WHITE); }
+				outtextxy(350, 225, "Level 10");
+				if (mc == 11) { setcolor(RED); }
+				else { setcolor(WHITE); }
+				outtextxy(350, 325, "Level 11");
+				if (mc == 12) { setcolor(RED); }
+				else { setcolor(WHITE); }
+				outtextxy(350, 425, "Level 12");
+				if (mc == 13) { setcolor(RED); }
+				else { setcolor(WHITE); }
+				outtextxy(350, 525, "Level 13");
+				if (mc == 14) { setcolor(RED); }
+				else { setcolor(WHITE); }
+				outtextxy(350, 625, "Level 14");
+				if (mc == 15) { setcolor(RED); }
+				else { setcolor(WHITE); }
+				outtextxy(750, 25, "Level 15");
+				if (mc == 16) { setcolor(RED); }
+				else { setcolor(WHITE); }
+				outtextxy(750, 125, "Level 16");
+				if (mc == 17) { setcolor(RED); }
+				else { setcolor(WHITE); }
+				outtextxy(750, 225, "Level 17");
+				if (mc == 18) { setcolor(RED); }
+				else { setcolor(WHITE); }
+				outtextxy(750, 325, "Level 18");
+				if (mc == 19) { setcolor(RED); }
+				else { setcolor(WHITE); }
+				outtextxy(750, 425, "Level 19");
+				if (mc == 20) { setcolor(RED); }
+				else { setcolor(WHITE); }
+				outtextxy(750, 525, "Level 20");
+				if (mc == 21) { setcolor(RED); }
+				else { setcolor(WHITE); }
+				outtextxy(750, 625, "Level 21");
+
+				if ((key == 75) || (key == 77)) {
+					lvl = mc; health = 0;
+				}
+			}
+			setlinestyle(0, 0, 1);
+		}
+		if (lvl == 1) {
+			for (i = 0; i < 24; i++) { for (j = 0; j < 14; j++) { a[i][j] = 0; } }
+			x = 325; y = 175; m = 0; tx = 775; ty = 275; health = 100; dm = 1;
+			for (i = 5; i < 18; i++) {
+				a[i][2] = 4;
+			}
+			in = 1;
+			for (i = 5; i < 18; i++) {
+				a[i][12] = 4;
+			}
+			in = 1;
+			for (i = 3; i < 12; i++) {
+				a[5][i] = 4;
+			}
+			for (i = 3; i < 12; i++) {
+				a[17][i] = 4;
+			}
+			a[10][3] = 11;
+			a[10][4] = 4;
+			a[10][5] = 13;
+			a[10][6] = 4;
+			a[10][7] = 4;
+			a[10][8] = 4;
+			a[9][8] = 4;
+			a[8][8] = 4;
+			a[7][8] = 4;
+			a[6][8] = 4;
+			a[9][7] = 10;
+			a[8][7] = 6;
+			a[7][7] = 6;
+			a[6][7] = 10;
+			a[9][6] = 15;
+			a[8][6] = 15;
+			a[7][6] = 15;
+			a[6][6] = 15;
+			in = 1;
+			a[10][9] = 15;
+			a[10][10] = 15;
+			a[10][11] = 15;
+			a[6][9] = 6;
+			a[6][10] = 5;
+			a[6][11] = 6;
+			a[15][9] = 10;
+			a[15][10] = 10;
+			a[15][11] = 10;
+			a[16][11] = 9;
+		}
+		if (lvl == 2) {
+			for (i = 0; i < 24; i++) { for (j = 0; j < 14; j++) { a[i][j] = 0; } }
+			for (i = 0; i < 24; i++)
+			{
+				for (j = 0; j < 14; j++)
+				{
+					a[i][j] = 0;
+				}
+			}
+			x = 325;
+			y = 275; dm = 1;
+			m = 0;
+			health = 100;
+			cleardevice();
+			in = 1;
+			for (i = 5; i < 16; i++) { for (j = 3; j < 9; j++) { a[i][j] = 2; } }
+			for (i = 6; i < 15; i++) { for (j = 4; j < 8; j++) { a[i][j] = 0; } }
+			a[6][4] = 9;
+			a[10][4] = 10;
+			a[10][5] = 10;
+			a[10][6] = 10;
+			a[10][7] = 10;
+			a[13][4] = 6;
+			a[13][5] = 6;
+			a[13][6] = 6;
+			a[13][7] = 6;
+			a[14][4] = 9;
+			a[14][5] = 9;
+			a[14][6] = 9;
+			a[14][7] = 9;
+		}
+		if (lvl == 3) {
+			cleardevice();
+			for (i = 0; i < 24; i++) { for (j = 0; j < 14; j++) { a[i][j] = 0; } }
+			x = 525;
+			tx = 625; dm = 1;
+			ty = 625;
+			y = 375;
+			m = 0;
+			health = 100;
+			for (i = 0; i < 24; i++)
+			{
+				for (j = 0; j < 14; j++)
+				{
+					a[i][j] = 0;
+				}
+			}
+			in = 1;
+			for (i = 5; i < 19; i++) { for (j = 3; j < 12; j++) { a[i][j] = 5; } }
+			for (i = 6; i < 18; i++) { for (j = 4; j < 11; j++) { a[i][j] = 0; } }
+			for (i = 9; i < 15; i++) { for (j = 6; j < 9; j++) { a[i][j] = 14; } }
+			a[10][6] = 1;
+			a[10][7] = 0;
+			a[9][7] = 6;
+			a[11][7] = 0;
+			a[12][7] = 0;
+			a[13][7] = 9;
+			a[12][6] = 6;
+			a[14][6] = 6;
+			a[12][8] = 6;
+		}
+		if (lvl == 4) {
+			cleardevice();
+			for (i = 0; i < 24; i++) { for (j = 0; j < 14; j++) { a[i][j] = 0; } }
+			x = 325;
+			tx = 625; dm = 1;
+			ty = 625;
+			y = 275;
+			m = 0;
+			health = 100;
+			for (i = 0; i < 24; i++)
+			{
+				for (j = 0; j < 14; j++)
+				{
+					a[i][j] = 0;
+				}
+			}
+			in = 1;
+			for (i = 5; i < 16; i++) { for (j = 4; j < 10; j++) { a[i][j] = 4; } }
+			for (i = 6; i < 15; i++) { for (j = 5; j < 9; j++) { a[i][j] = 0; } }
+			a[7][8] = 10;
+			a[7][9] = 6;
+			a[9][8] = 10;
+			a[9][9] = 6;
+			a[10][9] = 11;
+			a[12][5] = 15; a[12][6] = 15; a[12][7] = 15; a[12][8] = 15;
+			a[11][8] = 9;
+			a[13][5] = 1; a[13][6] = 1; a[13][7] = 1; a[13][8] = 1;
+			a[14][5] = 6; a[14][6] = 5; a[14][7] = 6; a[14][8] = 5;
+		}
+		if (lvl == 5) {
+			cleardevice();
+			for (i = 0; i < 24; i++) { for (j = 0; j < 14; j++) { a[i][j] = 0; } }
+			x = 325;
+			tx = 625; dm = 1;
+			ty = 625;
+			y = 425;
+			m = 0;
+			health = 100;
+			for (i = 0; i < 24; i++)
+			{
+				for (j = 0; j < 14; j++)
+				{
+					a[i][j] = 0;
+				}
+			}
+			in = 1;
+			for (i = 5; i < 12; i++) { for (j = 4; j < 10; j++) { a[i][j] = 2; } }
+			for (i = 6; i < 11; i++) { for (j = 5; j < 9; j++) { a[i][j] = 0; } }
+			a[6][4] = 6; a[8][4] = 6; a[10][4] = 6;
+			a[6][6] = 14; a[8][6] = 1; a[10][6] = 14; a[7][6] = 14; a[9][6] = 14;
+			a[8][7] = 10;
+			a[8][8] = 10;
+			a[8][9] = 6;
+			a[10][8] = 9;
+		}
+		if (lvl == 6) {
+			cleardevice();
+			for (i = 0; i < 24; i++) { for (j = 0; j < 14; j++) { a[i][j] = 0; } }
+			x = 375;
+			tx = 675;
+			ty = 625; dm = 1;
+			y = 425;
+			m = 0;
+			health = 100;
+			for (i = 0; i < 24; i++)
+			{
+				for (j = 0; j < 14; j++)
+				{
+					a[i][j] = 0;
+				}
+			}
+			in = 1;
+			for (i = 5; i < 13; i++) { for (j = 4; j < 12; j++) { a[i][j] = 4; } }
+			for (i = 6; i < 12; i++) { for (j = 5; j < 11; j++) { a[i][j] = 0; } }
+			a[6][8] = 10; a[8][8] = 10; a[7][7] = 10; a[7][9] = 10; a[8][7] = 10;
+			a[9][7] = 10; a[9][5] = 10; a[11][7] = 10; a[11][8] = 10; a[11][9] = 6;
+			a[10][9] = 10; a[10][10] = 10; a[8][10] = 6; a[9][6] = 6; a[11][4] = 6;
+			a[10][8] = 9;
+		}
+		if (lvl == 7) {
+			cleardevice();
+			for (i = 0; i < 24; i++) { for (j = 0; j < 14; j++) { a[i][j] = 0; } }
+			x = 325;
+			setcolor(WHITE);
+			tx = 475;
+			ty = 575; dm = 1;
+			y = 525;
+			dm = 1;
+			m = 0;
+			health = 100;
+			for (i = 0; i < 24; i++)
+			{
+				for (j = 0; j < 14; j++)
+				{
+					a[i][j] = 0;
+				}
+			}
+			in = 1;
+			a[4][8] = 2; a[4][9] = 2; a[4][10] = 2; a[4][11] = 2; a[4][12] = 2;
+			a[5][8] = 2; a[5][12] = 15;
+			a[6][4] = 2; a[6][5] = 2; a[6][6] = 2; a[6][7] = 2; a[6][8] = 6; a[6][12] = 15;
+			a[7][4] = 2; a[7][8] = 13; a[7][11] = 7; a[7][12] = 15;
+			a[8][4] = 2; a[8][7] = 11; a[8][8] = 5; a[8][9] = 2; a[8][10] = 2; a[8][11] = 2; a[8][12] = 2;
+			a[9][4] = 2; a[9][8] = 13; a[9][11] = 8; a[9][12] = 15;
+			a[10][4] = 2; a[10][5] = 2; a[10][6] = 15; a[10][7] = 2; a[10][8] = 2; a[10][12] = 15;
+			a[11][4] = 2; a[11][8] = 2; a[11][9] = 9; a[11][12] = 15;
+			a[12][4] = 2; a[12][8] = 2; a[12][9] = 2; a[12][10] = 13; a[12][11] = 2; a[12][12] = 2;
+			a[13][4] = 2; a[13][7] = 10; a[13][8] = 1; a[13][12] = 2; 
+			a[14][4] = 2; a[14][5] = 1; a[14][6] = 2; a[14][7] = 6; a[14][8] = 2; a[14][12] = 2;
+			a[15][4] = 2; a[15][5] = 10; a[15][6] = 10; a[15][8] = 15; a[15][9] = 10; a[15][11] = 5; a[15][12] = 2;
+			a[16][4] = 2; a[16][8] = 2; a[16][9] = 6; a[16][10] = 6; a[16][11] = 2; a[16][12] = 2;
+			a[17][4] = 2; a[17][8] = 2;
+			a[18][4] = 2; a[18][5] = 13; a[18][6] = 13; a[18][7] = 13; a[18][8] = 2;
+		}
+		if (lvl == 8) {
+			cleardevice();
+			for (i = 0; i < 24; i++) { for (j = 0; j < 14; j++) { a[i][j] = 0; } }
+			x = 325;
+			setcolor(WHITE);
+			tx = 925; dm = 1;
+			ty = 525;
+			y = 525;
+			dm = 1; m = 0;
+			health = 100;
+			for (i = 0; i < 24; i++)
+			{
+				for (j = 0; j < 14; j++)
+				{
+					a[i][j] = 0;
+				}
+			}
+			in = 1;
+			for (i = 4; i < 20; i++) { for (j = 4; j < 12; j++) { a[i][j] = 14; } }
+			a[7][10] = 1; a[8][10] = 1; a[8][9] = 1; a[8][8] = 1; a[8][7] = 1;
+			a[6][8] = 7; a[7][8] = 1; a[6][10] = 0; a[6][5] = 1;
+			a[7][5] = 1; a[7][6] = 1; a[8][6] = 1;
+			a[18][10] = 8;
+			a[9][6] = 1; a[10][6] = 1; a[10][7] = 1; a[10][8] = 1; a[10][9] = 1;
+			a[11][6] = 1; a[11][10] = 1; a[11][11] = 6; a[11][9] = 13;
+			a[12][4] = 6; a[12][5] = 1; a[12][6] = 15; a[12][9] = 1;
+			a[13][9] = 1; a[14][9] = 1; a[14][8] = 1; a[14][7] = 1; a[14][6] = 1;
+			a[15][6] = 1; a[16][6] = 15;
+			a[17][5] = 1; a[17][6] = 1; a[17][7] = 1; a[13][6] = 1; a[6][4] = 6;
+			a[18][5] = 9; a[18][6] = 11; a[18][7] = 1; a[18][8] = 1; a[18][9] = 1;  a[19][8] = 6;
+
+		}
+		if (lvl == 9) {
+			setcolor(WHITE); settextstyle(3, 3, 3);
+			cleardevice();
+			for (i = 0; i < 24; i++) { for (j = 0; j < 14; j++) { a[i][j] = 0; } }
+			x = 525; dm = 1; dmm = 1;
+			tx = 725;
+			ty = 525;
+			y = 275;
+			m = 0;
+			health = 100;
+			for (i = 0; i < 24; i++)
+			{
+				for (j = 0; j < 14; j++)
+				{
+					a[i][j] = 0;
+				}
+			}
+			in = 1;
+			for (i = 5; i < 19; i++) { for (j = 3; j < 12; j++) { a[i][j] = 4; } }
+			for (i = 6; i < 18; i++) { for (j = 4; j < 11; j++) { a[i][j] = 0; } }
+			a[9][3] = 18; a[9][7] = 20;
+			a[8][5] = 10; a[7][5] = 17; 
+			a[9][8] = 4; a[9][9] = 4; a[9][10] = 4; a[13][8] = 4; a[13][9] = 4; a[13][10] = 4; a[13][7] = 4;
+			a[10][8] = 15; a[11][8] = 15; a[12][8] = 15;
+			a[14][7] = 19; a[16][8] = 10; a[8][10] = 7; a[14][10] = 8;
+			a[11][10] = 9; a[17][3] = 6; a[18][4] = 6; a[18][10] = 6; a[11][11] = 6;
+
+		}
+		if (lvl == 10) {
+			setcolor(WHITE); settextstyle(3, 3, 3);
+			cleardevice();
+			for (i = 0; i < 24; i++) { for (j = 0; j < 14; j++) { a[i][j] = 0; } }
+			x = 525; dm = 1; dmm = 1;
+			tx = 875;
+			ty = 525;
+			y = 275;
+			m = 0;
+			health = 100;
+			for (i = 0; i < 24; i++)
+			{
+				for (j = 0; j < 14; j++)
+				{
+					a[i][j] = 0;
+				}
+			}
+			in = 1;
+			for (i = 5; i < 19; i++) { for (j = 3; j < 12; j++) { a[i][j] = 4; } }
+			for (i = 6; i < 18; i++) { for (j = 4; j < 11; j++) { a[i][j] = 0; } }
+			a[6][2] = 4; a[7][2] = 4; a[8][2] = 4; a[5][2] = 4; a[9][2] = 4; a[10][2] = 4;
+			a[6][3] = 0; a[7][3] = 0; a[8][3] = 0;
+			a[9][3] = 18; a[9][7] = 20;
+			a[8][5] = 10; a[7][5] = 17;
+			a[9][8] = 15; a[9][9] = 15; a[9][10] = 15;
+			a[6][7] = 4; a[7][7] = 4; a[8][7] = 4; a[9][7] = 4; a[10][7] = 20;
+			a[14][3] = 18; a[14][7] = 4; a[15][7] = 4; a[16][7] = 4; a[17][7] = 4;
+			a[15][9] = 19; a[16][5] = 10;
+			a[17][6] = 7; a[17][10] = 8;
+			a[15][11] = 6; a[6][11] = 6; a[9][11] = 6; a[7][2] = 6; a[7][9] = 9;
+		}
+		if (lvl == 11) {
+			setcolor(WHITE); settextstyle(3, 3, 3);
+			cleardevice();
+			for (i = 0; i < 24; i++) { for (j = 0; j < 14; j++) { a[i][j] = 0; } }
+			x = 325; dm = 1; dmm = 1;
+			tx = 725;
+			ty = 525;
+			y = 525;
+			m = 0;
+			health = 100;
+			for (i = 0; i < 24; i++)
+			{
+				for (j = 0; j < 14; j++)
+				{
+					a[i][j] = 0;
+				}
+			}
+			in = 1;
+			for (i = 5; i < 19; i++) { for (j = 3; j < 12; j++) { a[i][j] = 5; } }
+			for (i = 6; i < 18; i++) { for (j = 4; j < 11; j++) { a[i][j] = 0; } }
+			a[6][6] = 10;
+			a[7][5] = 19; a[7][9] = 14; a[7][10] = 14; a[8][5] = 17;
+			a[9][9] = 14;
+			a[10][5] = 14; a[10][6] = 14; a[10][7] = 14; a[10][8] = 15; a[10][9] = 14; a[10][10] = 6;
+			a[11][4] = 10; a[11][8] = 1; a[11][9] = 14;
+			a[13][4] = 14; a[13][5] = 14; a[13][6] = 14; a[13][7] = 18;
+			a[14][6] = 14; a[15][9] = 4; a[16][9] = 4; a[16][8] = 4; a[17][8] = 1;
+			a[15][6] = 13; a[16][6] = 13; a[17][6] = 14; a[17][6] = 6; 
+			a[17][4] = 9; a[5][5] = 6; a[18][10] = 6;
+
+		}
+		if (lvl == 12) {
+			setcolor(WHITE); settextstyle(3, 3, 3);
+			cleardevice();
+			for (i = 0; i < 24; i++) { for (j = 0; j < 14; j++) { a[i][j] = 0; } }
+			x = 325; dm = 1; dmm = 1;
+			tx = 725;
+			ty = 525;
+			y = 275;
+			m = 0;
+			health = 100;
+			for (i = 0; i < 24; i++)
+			{
+				for (j = 0; j < 14; j++)
+				{
+					a[i][j] = 0;
+				}
+			}
+			in = 1;
+			a[4][3] = 6; a[4][4] = 5; a[4][5] = 5; a[4][6] = 5; a[4][7] = 2;
+			a[5][3] = 4; a[6][3] = 4; a[7][3] = 4; a[8][3] = 15; a[5][4] = 11;
+			a[8][4] = 13; a[8][5] = 13; a[8][6] = 13; a[8][7] = 18;
+			a[5][7] = 15; a[6][7] = 15; a[7][7] = 15;
+			a[4][8] = 4; a[4][9] = 4; a[4][10] = 4; a[4][11] = 6;
+			a[5][11] = 2; a[6][11] = 2; a[7][11] = 6; a[8][11] = 4; a[7][10] = 10;
+			a[9][3] = 2; a[10][3] = 17; a[11][3] = 2; a[12][3] = 5; a[10][5] = 10;
+			a[12][4] = 6; a[12][5] = 4; a[12][6] = 4; a[12][7] = 20;
+			a[9][7] = 13; a[10][7] = 13; a[11][7] = 13;
+			a[9][11] = 14; a[10][11] = 14; a[11][11] = 14; a[12][11] = 4;
+			a[12][8] = 15; a[12][9] = 15; a[12][10] = 15;
+			a[13][3] = 2; a[14][3] = 2; a[15][3] = 2; a[16][3] = 6; a[15][4] = 9;
+			a[16][4] = 13; a[16][5] = 13; a[16][6] = 13; a[16][7] = 6;
+			a[16][8] = 4; a[16][9] = 4; a[16][10] = 4; a[16][11] = 6;
+			a[13][11] = 14; a[14][11] = 6; a[15][11] = 14;
+		}
+		if (lvl == 13) {
+			setcolor(WHITE); settextstyle(3, 3, 3);
+			cleardevice();
+			for (i = 0; i < 24; i++) { for (j = 0; j < 14; j++) { a[i][j] = 0; } }
+			x = 325; dm = 1; dmm = 1;
+			tx = 725;
+			ty = 525;
+			y = 325;
+			m = 0;
+			health = 100;
+			for (i = 0; i < 24; i++)
+			{
+				for (j = 0; j < 14; j++)
+				{
+					a[i][j] = 0;
+				}
+			}
+			in = 1;
+			for (i = 5; i < 20; i++) { for (j = 3; j < 12; j++) { a[i][j] = 2; } }
+			for (i = 6; i < 19; i++) { for (j = 4; j < 11; j++) { a[i][j] = 0; } }
+			a[8][4] = 19; a[9][5] = 10; a[9][4] = 17; a[16][5] = 10;
+			a[14][3] = 18; a[14][7] = 18; a[15][7] = 14; a[16][7] = 14; a[17][7] = 14; a[18][7] = 2;
+			a[18][4] = 15; a[18][5] = 15; a[18][6] = 15; a[19][5] = 6;
+			a[18][8] = 13; a[18][9] = 13; a[18][10] = 13; a[19][9] = 6;
+			a[10][7] = 20; a[6][7] = 20;
+			a[10][8] = 14; a[10][9] = 14; a[10][10] = 14;
+			a[6][8] = 15; a[6][9] = 15; a[6][10] = 15; a[5][9] = 6;
+			a[11][10] = 13; a[11][11] = 6; a[6][4] = 9;
+		} //88
+		if (lvl == 14) {
+			setcolor(WHITE); settextstyle(3, 3, 3);
+			cleardevice();
+			for (i = 0; i < 24; i++) { for (j = 0; j < 14; j++) { a[i][j] = 0; } }
+			x = 325; dm = 1; dmm = 1;
+			tx = 625;
+			ty = 225;
+			y = 275;
+			m = 0;
+			health = 100;
+			for (i = 0; i < 24; i++)
+			{
+				for (j = 0; j < 14; j++)
+				{
+					a[i][j] = 0;
+				}
+			}
+			in = 1;
+			for (i = 5; i < 14; i++) { for (j = 3; j < 12; j++) { a[i][j] = 2; } }
+			for (i = 6; i < 13; i++) { for (j = 4; j < 11; j++) { a[i][j] = 0; } }
+			a[6][4] = 7; a[12][4] = 8; a[5][7] = 20; a[12][10] = 9;
+			a[8][4] = 19; a[9][4] = 2; a[9][5] = 2; a[9][6] = 2; a[9][7] = 18;
+			a[12][5] = 17; a[11][5] = 10; a[7][7] = 10;
+			a[13][8] = 15; a[13][9] = 13; a[14][8] = 6; a[14][9] = 6;
+			a[5][8] = 13; a[5][9] = 15; a[4][8] = 6; a[4][9] = 6;
+		} //88
+		if (lvl == 15) {
+			setcolor(WHITE); settextstyle(3, 3, 3);
+			cleardevice();
+			for (i = 0; i < 24; i++) { for (j = 0; j < 14; j++) { a[i][j] = 0; } }
+			x = 275; dm = 1; dmm = 1;
+			tx = 625;
+			ty = 225;
+			y = 175;
+			m = 0;
+			health = 100;
+			for (i = 0; i < 24; i++)
+			{
+				for (j = 0; j < 14; j++)
+				{
+					a[i][j] = 0;
+				}
+			}
+			in = 1;
+			for (i = 4; i < 20; i++) { for (j = 2; j < 12; j++) { a[i][j] = 5; } }
+			for (i = 5; i < 19; i++) { for (j = 3; j < 11; j++) { a[i][j] = 0; } }
+			a[5][7] = 10; a[6][3] = 10; a[6][4] = 10; a[6][5] = 10; a[6][7] = 10;
+			a[7][7] = 10; a[7][9] = 10; a[8][4] = 10;
+			a[9][3] = 10; a[9][4] = 10; a[9][9] = 10; a[9][10] = 10;
+			a[10][5] = 10; a[10][6] = 10; a[10][7] = 10; a[10][9] = 10;
+			a[11][5] = 10; a[11][7] = 10;
+			a[12][5] = 10; a[12][7] = 10; a[12][8] = 10; a[12][9] = 10; a[12][10] = 10;
+			a[13][4] = 10; a[13][9] = 10;
+			a[14][3] = 10; a[14][4] = 10; a[14][5] = 10; a[14][6] = 10; a[14][8] = 10; a[14][9] = 10;
+			a[15][4] = 10; a[15][9] = 10;
+			a[16][6] = 10; a[16][8] = 10; a[16][9] = 10; a[16][10] = 10;
+			a[17][3] = 10; a[17][4] = 10; a[17][8] = 10;
+			a[18][4] = 10; a[18][6] = 10; a[18][8] = 10;
+			a[12][2] = 6; a[15][11] = 6; a[17][2] = 6; a[19][4] = 6; a[19][8] = 6;
+			a[6][9] = 10; a[10][10] = 9;
+		} //88
+		if (lvl == 16) {
+			setcolor(WHITE); settextstyle(3, 3, 3);
+			cleardevice();
+			for (i = 0; i < 24; i++) { for (j = 0; j < 14; j++) { a[i][j] = 0; } }
+			x = 275; dm = 1; dmm = 1;
+			tx = 475;
+			ty = 525;
+			y = 175;
+			m = 0;
+			health = 100;
+			for (i = 0; i < 24; i++)
+			{
+				for (j = 0; j < 14; j++)
+				{
+					a[i][j] = 0;
+				}
+			}
+			in = 1;
+			for (i = 4; i < 20; i++) { for (j = 2; j < 12; j++) { a[i][j] = 4; } }
+			for (i = 5; i < 19; i++) { for (j = 3; j < 11; j++) { a[i][j] = 0; } }
+			a[4][10] = 20; a[6][4] = 10; a[8][2] = 18; a[7][9] = 7; a[9][10] = 8;
+			a[5][6] = 1; a[6][6] = 1; a[7][6] = 1; a[8][6] = 20;
+			a[5][9] = 9; a[6][11] = 6; a[8][7] = 4; a[8][8] = 4; a[8][9] = 4; a[8][10] = 4;
+			a[9][3] = 15; a[10][3] = 15; a[11][3] = 15; a[10][2] = 6;
+			a[12][3] = 13; a[12][4] = 13; a[12][5] = 13; a[12][6] = 13; a[12][7] = 13; a[12][8] = 13; a[12][9] = 19; a[12][10] = 1;
+			a[13][7] = 10; a[13][9] = 1; a[13][10] = 1;
+			a[14][4] = 10; a[14][6] = 10; a[14][7] = 10;
+			a[15][6] = 10; a[15][7] = 10;
+			a[16][5] = 10; a[16][6] = 10; 
+			a[17][6] = 10; a[17][7] = 10; a[17][4] = 17; a[17][10] = 15; 
+			a[18][5] = 10; a[18][6] = 10; a[18][9] = 15; a[18][10] = 15;
+			a[17][11] = 6; a[19][10] = 6;
+
+		} //88
+		if (lvl == 17) {
+			setcolor(WHITE); settextstyle(3, 3, 3);
+			cleardevice();
+			for (i = 0; i < 24; i++) { for (j = 0; j < 14; j++) { a[i][j] = 0; } }
+			x = 275; dm = 1; dmm = 1;
+			tx = 475;
+			ty = 525;
+			y = 175;
+			m = 0;
+			health = 100;
+			for (i = 0; i < 24; i++)
+			{
+				for (j = 0; j < 14; j++)
+				{
+					a[i][j] = 0;
+				}
+			}
+			in = 1;
+			for (i = 4; i < 20; i++) { for (j = 2; j < 12; j++) { a[i][j] = 5; } }
+			for (i = 5; i < 19; i++) { for (j = 3; j < 11; j++) { a[i][j] = 14; } }
+			a[5][3] = 1; a[5][4] = 1;
+			a[6][4] = 1; a[6][7] = 1; a[6][8] = 1; a[6][9] = 1;
+			a[7][4] = 1; a[7][7] = 1; a[7][8] = 11; a[7][9] = 1;
+			a[8][4] = 1; a[8][7] = 1; a[8][8] = 1; a[8][9] = 1; a[8][5] = 1;
+			a[9][4] = 1; a[9][7] = 1; a[10][4] = 1; a[10][7] = 1; a[10][10] = 1;
+			a[11][3] = 1; a[11][4] = 1; a[11][5] = 1; a[11][6] = 1; a[11][7] = 1; a[11][8] = 1; a[11][10] = 1;
+			a[12][6] = 1; a[12][10] = 1; a[13][4] = 1; a[13][5] = 1; a[13][6] = 1; a[13][10] = 1;
+			a[14][4] = 15; a[14][6] = 13; a[14][7] = 1; a[14][8] = 1; a[14][9] = 1; a[14][10] = 1;
+			a[15][4] = 1; a[15][7] = 1; a[16][4] = 1; a[16][7] = 1; a[16][3] = 1;
+			a[16][8] = 13; a[16][9] = 1;
+			a[17][4] = 1; a[17][7] = 1; a[17][6] = 1; a[17][9] = 1; a[17][10] = 1;
+			a[18][4] = 15; a[18][5] = 1; a[18][6] = 1; a[18][10] = 9;
+			a[16][2] = 6; a[10][11] = 6; a[7][11] = 6; a[11][2] = 6; a[19][6] = 6;
+
+		} //88
+		if (lvl == 18) {
+			setcolor(WHITE); settextstyle(3, 3, 3);
+			cleardevice();
+			for (i = 0; i < 24; i++) { for (j = 0; j < 14; j++) { a[i][j] = 0; } }
+			x = 275; dm = 1; dmm = 1;
+			tx = 475;
+			ty = 525;
+			y = 375;
+			m = 0;
+			health = 100;
+			for (i = 0; i < 24; i++)
+			{
+				for (j = 0; j < 14; j++)
+				{
+					a[i][j] = 0;
+				}
+			}
+			in = 1;
+			in = 1;
+			for (i = 3; i < 18; i++) { for (j = 2; j < 13; j++) { a[i][j] = 10; } }
+			for (i = 4; i < 17; i++) { for (j = 3; j < 12; j++) { a[i][j] = 0; } }
+			a[4][6] = 6; a[4][7] = 14; a[4][8] = 10; a[4][9] = 10;
+			a[5][6] = 14; a[5][10] = 10; a[5][8] = 6;
+			a[6][6] = 10; a[6][10] = 10;
+			a[7][6] = 10; a[7][10] = 10;
+			a[8][6] = 10; a[8][10] = 1;
+			a[9][6] = 10; a[9][10] = 10; a[9][7] = 11; a[9][9] = 9; a[9][8] = 10; a[8][9] = 10;
+			a[10][6] = 10; a[10][7] = 10; a[10][8] = 10; a[10][9] = 10;
+			a[11][6] = 14; a[11][7] = 14; a[12][6] = 14; a[12][7] = 6;
+			a[13][7] = 10; a[13][8] = 10; a[13][5] = 15;
+			a[14][4] = 15; a[14][6] = 15; a[15][5] = 15; a[14][5] = 6;
+			a[4][2] = 18; a[12][9] = 17; a[4][9] = 20;
+		} //88
+		if (lvl == 19) {
+			setcolor(WHITE); settextstyle(3, 3, 3);
+			cleardevice();
+			for (i = 0; i < 24; i++) { for (j = 0; j < 14; j++) { a[i][j] = 0; } }
+			x = 175; dm = 1; dmm = 1;
+			tx = 475;
+			ty = 525;
+			y = 175;
+			m = 0;
+			health = 100;
+			for (i = 0; i < 24; i++)
+			{
+				for (j = 0; j < 14; j++)
+				{
+					a[i][j] = 0;
+				}
+			}
+			in = 1;
+			for (i = 2; i < 22; i++) { for (j = 2; j < 12; j++) { a[i][j] = 4; } }
+			for (i = 3; i < 21; i++) { for (j = 3; j < 11; j++) { a[i][j] = 0; } }
+			a[3][10] = 15; a[4][10] = 15; a[5][10] = 15; a[4][4] = 10; a[2][6] = 20;
+			a[6][2] = 18; a[6][6] = 2; a[6][10] = 5; a[6][7] = 13; a[6][8] = 13; a[6][9] = 13;
+			a[8][2] = 6; a[4][11] = 6; a[13][2] = 6;
+			a[7][6] = 15; a[8][6] = 15; a[9][6] = 15;
+			a[10][2] = 18; a[10][6] = 6;
+			a[10][7] = 13; a[10][8] = 13; a[10][9] = 13; a[10][10] = 13;
+			a[11][6] = 20; a[11][8] = 2; a[11][9] = 1; a[11][10] = 2;
+			a[14][10] = 19; a[15][2] = 18; a[12][9] = 10; a[15][6] = 2;
+			a[17][3] = 4; a[17][4] = 20; a[17][5] = 18;
+			a[17][9] = 17; a[17][10] = 5; a[19][10] = 10; a[19][11] = 6;
+			a[18][3] = 15; a[19][3] = 15; a[20][3] = 15;
+			a[19][2] = 9; a[18][1] = 4; a[19][1] = 4; a[20][1] = 4;
+		} //88
+		if (lvl == 20) {
+			setcolor(WHITE); settextstyle(3, 3, 3);
+			cleardevice();
+			for (i = 0; i < 24; i++) { for (j = 0; j < 14; j++) { a[i][j] = 0; } }
+			x = 225; dm = 1; dmm = 1;
+			tx = 475;
+			ty = 475;
+			y = 525;
+			m = 0;
+			health = 100;
+			for (i = 0; i < 24; i++)
+			{
+				for (j = 0; j < 14; j++)
+				{
+					a[i][j] = 0;
+				}
+			}
+			in = 1;
+			a[3][3] = 4; a[3][4] = 4; a[3][5] = 4; a[3][6] = 4; a[3][7] = 4; a[3][8] = 4; a[3][9] = 4; a[3][10] = 4; a[3][11] = 4; a[3][7] = 20;
+			a[4][3] = 4; a[4][5] = 19; a[4][6] = 7; a[4][11] = 4;
+			a[5][3] = 4; a[5][9] = 10; a[5][11] = 4;
+			a[6][3] = 15; a[6][4] = 10; a[6][11] = 4;
+			a[7][3] = 4; a[7][4] = 4; a[7][5] = 13; a[7][6] = 13; a[7][7] = 18; a[7][11] = 4;
+			a[8][3] = 4; a[8][7] = 15; a[8][11] = 4; a[8][12] = 4;
+			a[9][3] = 4; a[9][7] = 15; a[9][9] = 8; a[9][11] = 6; a[9][12] = 4;
+			a[10][3] = 15; a[10][7] = 15; a[10][11] = 4; a[10][12] = 4;
+			a[11][3] = 4; a[11][4] = 14; a[11][5] = 1; a[11][6] = 14; a[11][7] = 18; a[11][11] = 4;
+			a[12][3] = 4; a[12][7] = 20; a[12][11] = 4;
+			a[13][3] = 4; a[13][4] = 15; a[13][5] = 10; a[13][10] = 17; a[13][11] = 4;
+			a[14][3] = 4; a[14][4] = 15; a[14][5] = 10; a[14][11] = 4;
+			a[15][3] = 4; a[15][4] = 4; a[15][5] = 6; a[15][6] = 4; a[15][8] = 2; a[15][9] = 13; a[15][10] = 13; a[15][11] = 5;
+			a[16][2] = 4; a[16][3] = 4; a[16][5] = 10; a[16][6] = 10; a[16][7] = 20; a[16][8] = 2; a[16][11] = 4;
+			a[17][2] = 4; a[17][3] = 6; a[17][6] = 10; a[17][11] = 4;
+			a[18][2] = 4; a[18][3] = 4; a[18][6] = 10; a[18][11] = 4;
+			a[19][3] = 18; a[19][8] = 4; a[19][9] = 4; a[19][10] = 4; a[19][11] = 4;
+			a[20][3] = 4; a[20][4] = 9; a[20][5] = 9; a[20][6] = 9; a[20][7] = 4; a[20][8] = 4;
+			a[21][3] = 6; a[21][4] = 4; a[21][5] = 4; a[21][6] = 4; a[21][7] = 4;
+		} //88
+		if (lvl == 21) {
+			setcolor(WHITE); settextstyle(3, 3, 3);
+			cleardevice();
+			for (i = 0; i < 24; i++) { for (j = 0; j < 14; j++) { a[i][j] = 0; } }
+			x = 225; dm = 1; dmm = 1;
+			tx = 475;
+			ty = 525;
+			y = 225;
+			m = 0;
+			health = 100;
+			for (i = 0; i < 24; i++)
+			{
+				for (j = 0; j < 14; j++)
+				{
+					a[i][j] = 0;
+				}
+			}
+			in = 1;
+			for (i = 0; i < 23; i++) { for (j = 3; j < 11; j++) { a[i][j] = 4; } }
+			for (i = 1; i < 22; i++) { for (j = 4; j < 10; j++) { a[i][j] = 0; } }
+			a[0][6] = 6;
+			a[1][4] = 14; a[1][5] = 1; a[1][6] = 1; a[1][7] = 14; a[1][8] = 14; a[1][9] = 14;
+			a[2][4] = 10; a[2][6] = 10; a[3][4] = 10; a[3][6] = 10;
+			a[5][4] = 17; a[5][5] = 13; a[5][6] = 18;
+			a[8][3] = 6; a[22][9] = 6;
+			a[7][4] = 13; a[7][5] = 15; a[7][6] = 15; a[7][7] = 15; a[7][8] = 15; a[7][9] = 19;
+			a[8][5] = 15; a[9][6] = 15; a[9][7] = 15;
+			a[10][8] = 15;
+			a[11][4] = 15; a[11][5] = 15; a[11][6] = 15; a[11][7] = 15; a[11][8] = 15; a[11][9] = 15;
+			a[13][4] = 11; a[13][6] = 12; a[13][7] = 11; a[13][8] = 12; a[13][9] = 11;
+			a[15][4] = 1; a[16][4] = 1; a[16][3] = 6; a[17][4] = 14;
+			a[15][6] = 10; a[16][6] = 14; a[17][6] = 6; a[15][5] = 14;
+			a[17][6] = 5; a[17][7] = 5; a[17][8] = 5; a[17][9] = 5; a[15][9] = 5; a[16][9] = 5;
+			a[19][4] = 9; a[19][5] = 9; a[19][6] = 9; a[19][7] = 9; a[19][8] = 9; a[19][9] = 9;
+			a[21][4] = 9; a[21][5] = 9; a[21][6] = 9; a[21][7] = 9; a[21][8] = 9; a[21][9] = 9;
+			a[20][6] = 9; a[20][7] = 9;
+
+
+
+
+		} //88
+		if (lvl == 22) { lvl = 0; ls = 1; }
+		while ((health > 0)&&(lvl != 0)&&(in == 1)) {
+			key = 0;
+			if (kbhit()) {
+				key = getch();
+			}
+			if (key == 9) { health = 0; }
+			if ((key == 75) && (a[int(x / 50) - 1][int(y / 50)] == 10) && (a[int(x / 50) - 2][int(y / 50)] == 0)) { a[int(x / 50) - 1][int(y / 50)] = 0; a[int(x / 50) - 2][int(y / 50)] = 10;  x -= 50; cleardevice(); }
+			if ((key == 77) && (a[int(x / 50) + 1][int(y / 50)] == 10) && (a[int(x / 50) + 2][int(y / 50)] == 0)) { a[int(x / 50) + 1][int(y / 50)] = 0; a[int(x / 50) + 2][int(y / 50)] = 10;  x += 50; cleardevice(); }
+			if ((key == 72) && (a[int(x / 50)][int(y / 50) - 1] == 10) && (a[int(x / 50)][int(y / 50) - 2] == 0)) { a[int(x / 50)][int(y / 50) - 1] = 0; a[int(x / 50)][int(y / 50) - 2] = 10;  y -= 50; cleardevice(); }
+			if ((key == 80) && (a[int(x / 50)][int(y / 50) + 1] == 10) && (a[int(x / 50)][int(y / 50) + 2] == 0)) { a[int(x / 50)][int(y / 50) + 1] = 0; a[int(x / 50)][int(y / 50) + 2] = 10;  y += 50; cleardevice(); }
+			if (key == 75) { x -= 50; b = 2; cleardevice(); }
+			if (key == 77) { x += 50; b = 1; cleardevice(); }
+			if (key == 72) { y -= 50; b = 4; cleardevice(); }
+			if (key == 80) { y += 50; b = 3; cleardevice(); }
+			if (key == 27) { health = 0; ls = lvl; lvl = 0; k = 0; cleardevice(); }
+			if ((a[int(x / 50)][int(y / 50)] == 4) || (a[int(x / 50)][int(y / 50)] == 5) || (a[int(x / 50)][int(y / 50)] == 2) || (a[int(x / 50)][int(y / 50)] == 10) || (a[int(x / 50)][int(y / 50)] == 16) || (a[int(x / 50)][int(y / 50)] == 17) || (a[int(x / 50)][int(y / 50)] == 19) || (a[int(x / 50)][int(y / 50)] == 18) || (a[int(x / 50)][int(y / 50)] == 20) || (a[int(x / 50)][int(y / 50)] == 21) || ((dm == 2) && (a[int(x / 50)][int(y / 50)] == 13)) || ((dm == 1) && (a[int(x / 50)][int(y / 50)] == 15))) {
+				switch (b) {
+				case 1: x -= 50; break;
+				case 2: x += 50; break;
+				case 3: y -= 50; break;
+				case 4: y += 50; break;
+				}
+			}
+			if ((a[int(x / 50) - 1][int(y / 50)] == 0) || (a[int(x / 50) - 1][int(y / 50)] == 1) || (a[int(x / 50) - 1][int(y / 50)] == 3) || (a[int(x / 50) - 1][int(y / 50)] == 9)) { key = 0; }
+			key = 0;
+			for (i = 0; i < 24; i++) {
+				for (j = 0; j < 14; j++) {
+					if (a[i][j] != 0) {
+						if ((a[i][j] == 3) && (a[int(x / 50)][int(y / 50)] != 3)) { a[i][j] = 1; }
+						if ((a[i][j] == 16) && (dmm == 2)) { a[i][j] = 0; }
+						if ((a[i][j] == 21) && (dmm == 1)) { a[i][j] = 0; }
+						if ((a[i][j] == 17) && ((a[i + 1][j] == 10) || (a[i - 1][j] == 10) || (a[i][j + 1] == 10) || (a[i][j - 1] == 10))) { dmm = 2; }
+						if ((a[i][j] == 17) && ((a[i + 1][j] != 10) && (a[i - 1][j] != 10) && (a[i][j + 1] != 10) && (a[i][j - 1] != 10))) { dmm = 1; }
+						if (((a[i][j + 1] == 0) && (a[i][j + 2] == 0) && (a[i][j + 3] == 0)) && ((a[i][j] == 18) && (dmm == 1))) { a[i][j + 1] = 16; a[i][j + 2] = 16; a[i][j + 3] = 16; }
+						if ((a[i][j] == 19) && ((a[i + 1][j] == 10) || (a[i - 1][j] == 10) || (a[i][j + 1] == 10) || (a[i][j - 1] == 10))) { dm = 2; }
+						if ((a[i][j] == 19) && ((a[i + 1][j] != 10) && (a[i - 1][j] != 10) && (a[i][j + 1] != 10) && (a[i][j - 1] != 10))) { dm = 1; }
+						if (((a[i + 1][j] == 0) && (a[i + 2][j] == 0) && (a[i + 3][j] == 0)) && (a[i][j] == 20) && (dmm == 2)) { a[i + 1][j] = 21; a[i + 2][j] = 21; a[i + 3][j] = 21; }
+						switch (a[i][j]) {
+						case 1:setfillstyle(1, BLUE); bar(i * 50, j * 50, (i * 50) + 50, (j * 50) + 50); break;
+						case 2:setfillstyle(1, BLUE); bar(i * 50, j * 50, (i * 50) + 50, (j * 50) + 50); break;
+						case 3:setfillstyle(3, LIGHTBLUE); bar(i * 50, j * 50, (i * 50) + 50, (j * 50) + 50); break;
+						case 4:setfillstyle(5, YELLOW); bar(i * 50, j * 50, (i * 50) + 50, (j * 50) + 50); break;
+						case 5:setfillstyle(9, LIGHTBLUE); bar(i * 50, j * 50, (i * 50) + 50, (j * 50) + 50); break;
+						case 6:setfillstyle(11, WHITE); bar(i * 50, j * 50, (i * 50) + 50, (j * 50) + 50); setfillstyle(1, YELLOW);  fillellipse(i * 50 + 25, j * 50 + 25, 12, 12); break;
+						case 7:setfillstyle(8, 9); fillellipse(i * 50 + 25, j * 50 + 25, 25, 25); break;
+						case 8:setfillstyle(8, 4); fillellipse(i * 50 + 25, j * 50 + 25, 25, 25); break;
+						case 9:setfillstyle(9, LIGHTRED); bar(i * 50, j * 50, (i * 50) + 50, (j * 50) + 50); break;
+						case 10:
+							if (lvl != 18) { setfillstyle(1, LIGHTGRAY); bar(i * 50, j * 50, (i * 50) + 50, (j * 50) + 50); break; } else { setfillstyle(1, BLUE); bar(i * 50, j * 50, (i * 50) + 50, (j * 50) + 50); break; }
+						case 11:setfillstyle(5, LIGHTGREEN); bar(i * 50, j * 50, (i * 50) + 50, (j * 50) + 50); setfillstyle(1, LIGHTRED);  fillellipse(i * 50 + 25, j * 50 + 25, 19, 19); setfillstyle(1, LIGHTBLUE); fillellipse(i * 50 + 25, j * 50 + 25, 16, 16); break;
+						case 12:setfillstyle(5, LIGHTGREEN); bar(i * 50, j * 50, (i * 50) + 50, (j * 50) + 50);  setfillstyle(1, LIGHTRED);  fillellipse(i * 50 + 25, j * 50 + 25, 19, 19); setfillstyle(1, YELLOW); fillellipse(i * 50 + 25, j * 50 + 25, 16, 16); break;
+						case 13:setfillstyle(dm + 2, LIGHTGRAY); bar(i * 50, j * 50, (i * 50) + 50, (j * 50) + 50); break;
+						case 14:setfillstyle(1, BLUE); bar(i * 50, j * 50, (i * 50) + 50, (j * 50) + 50); break;
+						case 15:setfillstyle(5 - dm, LIGHTGRAY); bar(i * 50, j * 50, (i * 50) + 50, (j * 50) + 50); break;
+						case 16:setfillstyle(11, LIGHTRED); bar(i * 50, j * 50, (i * 50) + 50, (j * 50) + 50); break;
+						case 17:setfillstyle(9 - dmm * 4, WHITE); bar(i * 50, j * 50, (i * 50) + 50, (j * 50) + 50); break;
+						case 18:setfillstyle(1, 4); bar(i * 50, j * 50, (i * 50) + 50, (j * 50) + 50); break;
+						case 19:setfillstyle(10 - dm * 3, WHITE); bar(i * 50, j * 50, (i * 50) + 50, (j * 50) + 50); break;
+						case 20:setfillstyle(1, BLUE); bar(i * 50, j * 50, (i * 50) + 50, (j * 50) + 50); break;
+						case 21:setfillstyle(11, LIGHTBLUE); bar(i * 50, j * 50, (i * 50) + 50, (j * 50) + 50); break;
+						}
+					}
+				}
+			}
+			if (a[int(x / 50)][int(y / 50)] == 6) {
+				a[int(x / 50)][int(y / 50)] = 5;
+				m++;
+			}
+			if (a[int(x / 50)][int(y / 50)] == 11) {
+				a[int(x / 50)][int(y / 50)] = 12;
+				switch (b) {
+				case 1: x -= 50; break;
+				case 2: x += 50; break;
+				case 3: y -= 50; break;
+				case 4: y += 50; break;
+				}
+				dm = 2;
+			}
+			if (a[int(x / 50)][int(y / 50)] == 12) {
+				a[int(x / 50)][int(y / 50)] = 11;
+				switch (b) {
+				case 1: x -= 50; break;
+				case 2: x += 50; break;
+				case 3: y -= 50; break;
+				case 4: y += 50; break;
+				}
+				dm = 1;
+			}
+			if (a[int(x / 50)][int(y / 50)] == 14) {
+				a[int(x / 50)][int(y / 50)] = 5;
+				switch (b) {
+				case 1: x -= 50; break;
+				case 2: x += 50; break;
+				case 3: y -= 50; break;
+				case 4: y += 50; break;
+				}
+			}
+			if (a[int(x / 50)][int(y / 50)] == 1) {
+				a[int(x / 50)][int(y / 50)] = 3;
+			}
+			if (a[int(x / 50)][int(y / 50)] == 7) {
+				x = tx;
+				y = ty;
+			}
+			if (((a[int(x / 50)][int(y / 50)] == 9) && (m == 4))&&(lvl == -1)) {
+				lvl = 0; health = 0; ls = 1; key = 0;
+			}
+			if ((a[int(x / 50)][int(y / 50)] == 9)&&(m == 4)) {
+				lvl++; health = 0; ls++;
+			}
+			if (a[int(x / 50)][int(y / 50)] == 8) {
+
+			}
+			outtextxy(300, 50, "ESC to go to menu");
+			outtextxy(500, 50, "TAB to restart");
+			outtextxy(700, 50, "arrows to move and interact with blocks");
+			if (lvl == -1){
+				settextstyle(3, 3, 3);
+				if (ts == 1) {
+					outtextxy(300, 250, "Open the door");
+					outtextxy(270, 300, "(push a button)");
+					outtextxy(510, 250, " Go ------->");
+					outtextxy(650, 400, " It's a portal");
+					outtextxy(50, 510, " Finish ------->");
+				}
+				if (ts == 2) {
+					outtextxy(640, 650, "Collect 4 coins and go to finish!");
+					if (dmm == 1) { outtextxy(430, 600, "<--- Move the block here to switch red and blue gates"); }
+					if (dmm == 2) {outtextxy(400, 260, "      Block these gates -->    <--"); outtextxy(540, 360, "Move the other block here --->"); outtextxy(430, 600, "    <--- Move the block from here to switch red and blue gates");}
+				}
+			}
+			switch (lvl) {
+			case 1: settextstyle(3, 3, 3); outtextxy(475, 660, "Level 1 (The button)"); break;
+			case 2: settextstyle(3, 3, 3); outtextxy(475, 660, "Level 2 (First mistakes)"); break;
+			case 3: settextstyle(3, 3, 3); outtextxy(465, 660, "Level 3 (Escape from the prison)"); break;
+			case 4: settextstyle(3, 3, 3); outtextxy(475, 660, "  Level 4 (Be carefull)"); break;
+			case 5: settextstyle(3, 3, 3); outtextxy(475, 660, "Level 5 (The secret way)"); break;
+			case 6: settextstyle(3, 3, 3); outtextxy(475, 660, "Level 6 (Blocking blocks)"); break;
+			case 7: settextstyle(3, 3, 3); outtextxy(475, 660, "Level 7 (Impossible puzzle)"); break;
+			case 8: settextstyle(3, 3, 3); outtextxy(475, 660, "Level 8 (Invisible path)"); break;
+			case 9: settextstyle(3, 3, 3); outtextxy(475, 660, " Level 9 (Supporting the door)"); break;
+			case 10: settextstyle(3, 3, 3); outtextxy(465, 660, " Level 10 (Supporting the door 2)"); break;
+			case 11: settextstyle(3, 3, 3); outtextxy(465, 660, "       Level 11 (Obstacles)"); break;
+			case 12: settextstyle(3, 3, 3); outtextxy(465, 660, "Level 12 (Are you still there?)"); break;
+			case 13: settextstyle(3, 3, 3); outtextxy(465, 660, "  Level 13 (Four variants)"); break;
+			case 14: settextstyle(3, 3, 3); outtextxy(465, 660, "       Level 14 (Mousetrap)"); break;
+			case 15: settextstyle(3, 3, 3); outtextxy(465, 660, "Level 15 (Movable labyrinth)"); break;
+			case 16: settextstyle(3, 3, 3); outtextxy(465, 660, "Level 16 (One of the hardest)"); break;
+			case 17: settextstyle(3, 3, 3); outtextxy(465, 660, "  Level 17 (Invisible path 2)"); break;
+			case 18: settextstyle(3, 3, 3); outtextxy(465, 660, "Level 18 (Breaking the borders)"); break;
+			case 19: settextstyle(3, 3, 3); outtextxy(480, 660, "Level 19 (Greedy)                                   do not take 5 coins!"); break;
+			case 20: settextstyle(3, 3, 3); outtextxy(465, 660, "    Level 20 (The hardest)"); break;
+			case 21: settextstyle(3, 3, 3); outtextxy(465, 660, "    Level 21 (Thanks for playing!)"); break;
+			}
+			setfillstyle(1, BLUE);
+			fillellipse(x, y, 20, 20);
+			delay(10);
+			if ((int(y / 50) == 10) && (int(x / 50) == 5) && (ts != 2) && (lvl == -1)) { health = 0; ts++; }
+		}
+		cleardevice();
+	}
+}
